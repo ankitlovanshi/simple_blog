@@ -1,17 +1,17 @@
+<div class="new_article_page">
 <h1><%= @article.title %></h1>
 
-<p><%= @article.body %></p>
-
-<ul>
+<p><%= @article.body %>
   <% if current_user == @article.user %>
-    <li><%= link_to "Edit", edit_article_path(@article) %></li>
-  <% end %>    
-  <% if current_user == @article.user %>
-    <li><%= link_to "Destroy", article_path(@article), method: :delete,data: { confirm: "Are you sure?" } %></li>
+    <%= link_to edit_article_path(@article), class: 'btn-navbar' do %>
+      <i class="fa fa-pencil delete_edit" aria-hidden="true"></i>
+    <% end %>
+    <%= link_to article_path(@article), method: :delete, class: 'btn-navbar' do %>
+      <i class="fa fa-trash-o" aria-hidden="true"></i>
+    <% end %>
   <% end %>                
-</ul>
-
-<h2>Comments</h2>
+</p> 
+  <h2>Comments</h2>
 <% @article.comments.each do |comment| %>
   <p>
     <strong>Commenter:</strong>
@@ -21,7 +21,9 @@
   <p>
     <strong>Comment:</strong>
     <%= comment.body %>
-    <li><%= link_to "Destroy", article_comment_path(@article, comment), method: :delete, data: { confirm: "Are you sure?" } %></li>
+    <li>
+      <%= link_to "Destroy", article_comment_path(@article, comment), method: :delete, data: { confirm: "Are you sure?" } %>
+    </li>
   </p>
 <% end %>
 
@@ -39,3 +41,4 @@
     <%= form.submit %>
   </p>
 <% end %>
+</div>

@@ -8,6 +8,8 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   </head>
 
@@ -19,16 +21,20 @@
       <p class="alert alert-danger"><%= alert %></p>
     <% end %>
 
-    <p class="navbar-text float-right">
+    <p class="navbar-text float-right new_article_page"><br>
     <% if user_signed_in? %>
       Logged in as <strong><%= current_user.email %></strong>.
-        <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+      <%= link_to edit_user_registration_path, :class => 'navbar-link' do %>
+      <i class="fa fa-user edit_button"></i>
+      <% end %>
     <% else %>
       <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
       <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
-<% end %>
-</p>
-    <%= yield %>
+    <% end %>
+    </p>
+    <%= yield %><br>
+    <% if user_signed_in? %>
+      <p class="new_article_page"><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %></p>
+    <% end %>
   </body>
 </html>

@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :articles
+  has_many :articles, dependent: :destroy
   has_many :likes
 
   # Include default devise modules. Others available are:

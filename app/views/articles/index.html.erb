@@ -1,15 +1,61 @@
 <h1>Articles</h1>
-  <%= link_to "New Article", new_article_path %>
-</div>
 <% if user_signed_in? %>
   <p>Hello <%= current_user.email %> you liked <%= current_user.likes.count %> article</p>
-  <% end %>
-<ul>
-  <% @articles.each do |article| %>
-    <li>
-      <%= article.title %>
-      <%= link_to "Show", article, :class => "btn" %><br>
-      <%= article.likes.count %>
-      <%= link_to "Like", article_likes_path(article), method: :post %>
-  <% end %>
-</ul>
+<% end %>
+<button class="button-63 new_article" role="button">
+  <%= link_to "New Article", new_article_path, class: :btn %>
+</button>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Show</th>
+      <th scope="col">Like count</th>
+      <th scope="col">Like/Dislike</th>
+      <th scope="col">Destroy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @articles.each do |article| %>
+      <tr>
+        <th scope="row"><%= article.id%></th>
+        <td><%= article.title %></td>
+        <td><%= link_to "Show", article, :class => "btn" %></td>
+        <td><%= article.likes.count %><%= (article.likes.count > 1) ? ' likes' : ' like'%></td>
+       
+        <% article_like = article.likes.where(user_id: current_user.id).first %>
+        <% if article.user_id != current_user.id %>
+          <% if article_like.present? %>
+            <td><%= link_to article_like_path(article, article_like), method: :delete, class: 'btn-navbar' do %>
+              <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+              <% end %>
+            </td>
+          <% else %>
+            <td><%= link_to article_likes_path(article, article_like), method: :post, class: 'btn-navbar' do %>
+              <i class="fa fa-thumbs-down" aria-hidden="true" style="color: red;"></i>
+              <% end %>
+            </td>
+          <% end %>
+        <% else %>
+          <td></td>
+        <% end %>
+
+        <% if article.user_id != current_user.id %>
+          <td></td>
+        <% else %>
+          <td><%= link_to article_path(article), method: :delete, class: 'btn-navbar' do %>
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+            <% end %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+function myFunction(x) {
+  x.classList.toggle("fa-thumbs-down");
+}
+</script>
