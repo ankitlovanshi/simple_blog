@@ -22,7 +22,11 @@
       <tr>
         <th scope="row"><%= article.id%></th>
         <td><%= article.title %></td>
-        <td><%= link_to "Show", article, :class => "btn" %></td>
+        <td>
+          <button class="button-71" rote="button" >
+            <%= link_to "Show", article, :class => "btn"%>
+          </button>
+        </td>
         <td><%= article.likes.count %><%= (article.likes.count > 1) ? ' likes' : ' like'%></td>
         <% article_like = article.likes.where(user_id: current_user.id).first %>
         <% if article.user_id != current_user.id %>
