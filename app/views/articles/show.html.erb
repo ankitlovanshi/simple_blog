@@ -1,5 +1,5 @@
 <div class="new_article_page">
-<h1><%= @article.title %></h1>
+<h2><%= @article.title %></h2>
 
 <p><%= @article.body %>
   <% if current_user == @article.user %>
@@ -11,7 +11,13 @@
     <% end %>
   <% end %>                
 </p> 
-  <h2>Comments</h2>
+
+<% if @article.comments.present? %>
+  <h3>Comments</h3>
+<% else %>
+  <h2></h2>
+<% end %>
+
 <% @article.comments.each do |comment| %>
   <p>
     <strong>Commenter:</strong>
@@ -41,4 +47,10 @@
     <%= form.submit %>
   </p>
 <% end %>
+</div>
+
+<div  class="home_button">
+  <%= button_to root_path, method: :get, class: 'btn' do %>
+    <i class="fa fa-home"></i> Home</button>
+  <% end %>
 </div>
