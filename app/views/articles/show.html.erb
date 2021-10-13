@@ -1,3 +1,8 @@
+<div  class="home_button">
+  <%= button_to root_path, method: :get, class: 'btn' do %>
+    <i class="fa fa-home"></i> Home</button>
+  <% end %>
+</div>
 <div class="new_article_page">
 <h2><%= @article.title %></h2>
 
@@ -45,10 +50,4 @@
     <%= form.submit %>
   </p>
 <% end %>
-</div>
-
-<div  class="home_button">
-  <%= button_to root_path, method: :get, class: 'btn' do %>
-    <i class="fa fa-home"></i> Home</button>
-  <% end %>
 </div>
